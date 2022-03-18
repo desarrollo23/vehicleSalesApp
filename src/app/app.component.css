@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+.main-container {
+    margin-bottom: 10px;
+}
+.header, .footer {
+    width: 100vw;
+}

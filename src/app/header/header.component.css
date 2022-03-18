@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header-container {
+    height: 10vh;
+    color:#f0f9ff;
+    background-color:#282d32;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    font-size:16px;
+}
+.header-container h3 {
+    padding: 10px;
+}
