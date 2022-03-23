@@ -12,15 +12,18 @@
                 <div class="col col-5">Price</div>
                 <div class="col col-6">Date</div>
               </li>
-              <li class="table-row">
-                <div class="col col-1" data-label="Job Id">42235</div>
-                <div class="col col-2" data-label="Customer Name">John Doe</div>
-                <div class="col col-3" data-label="Customer Name">Lionel messi</div>
-                <div class="col col-4" data-label="Customer Name">Ford fiesta SE</div>
-                <div class="col col-5" data-label="Amount">$350</div>
-                <div class="col col-6" data-label="Payment Status">2022-03-18</div>
-              </li>
-             
+              <div class="container-table">
+                <li class="col full-col" *ngIf="vehicleSales.length === 0"> <span>NO DATA</span></li>
+                <li *ngFor="let vehicle of vehicleSales" class="table-row">
+                  <div class="col col-1" data-label="Job Id"> {{ vehicle.dealNumber }} </div>
+                  <div class="col col-2" data-label="Customer Name"> {{ vehicle.customerName }} </div>
+                  <div class="col col-3" data-label="Customer Name"> {{ vehicle.dealershipName }} </div>
+                  <div class="col col-4" data-label="Customer Name"> {{ vehicle.vehicle }} </div>
+                  <div class="col col-5" data-label="Amount"> CAD${{ vehicle.price }} </div>
+                  <div class="col col-6" data-label="Payment Status">{{ vehicle.date }}</div>
+                </li>
+              </div>
+              
             </ul>
           </div>
     </div>

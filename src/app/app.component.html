@@ -1,12 +1,14 @@
 
 <div class="content">
+    <app-loader *ngIf="loading"></app-loader>
     <header class="header">
         <app-header></app-header>
     </header>
     
     <main class="main-container">
         <div class="upload-file">
-            <app-upload-file></app-upload-file>
+            <app-upload-file>
+            </app-upload-file>
         </div>
         <div class="dashboard">
             <app-dashboard></app-dashboard>

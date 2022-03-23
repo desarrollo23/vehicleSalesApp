@@ -1,5 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpEventType, HttpClient } from '@angular/common/http';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { ApiHttpService } from "../services/ApiHttpService";
+import { CommonService } from "../services/common.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-upload-file',
@@ -8,16 +11,21 @@ import { HttpEventType, HttpClient } from '@angular/common/http';
 })
 export class UploadFileComponent implements OnInit {
 
-  public progress!: number;
-  public message!: string;
-  @Output() public onUploadFinished = new EventEmitter();
+  updateTable: boolean = false;
+  public loading = false;
 
-  constructor(private http: HttpClient) { }
+  constructor( 
+    private ApiHttpService: ApiHttpService, 
+    private commonService: CommonService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    
   }
 
   uploadFile(files:FileList | null): void {
+
+    this.commonService.notifyOther({option: 'call_loader', value: 'show'});
 
     if(files !== undefined && files !== null)
     {
@@ -25,17 +33,16 @@ export class UploadFileComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', fileToUpload, fileToUpload.name);
 
-      this.http.post('https://localhost:5001/api/upload-file', formData, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
-        console.log('ENTRO');
-        
-        if (event.type === HttpEventType.UploadProgress && event.total)
-          this.progress = Math.round(100 * event.loaded / event.total);
-        else if (event.type === HttpEventType.Response) {
-          this.message = 'Upload success.';
-          this.onUploadFinished.emit(event.body);
-        }
-      });
+      this.ApiHttpService.post('https://localhost:44360/api/upload-file', formData)
+      .subscribe( 
+        data => {
+          this.commonService.notifyOther({option: 'call_update_table', value: 'update'});
+          this.commonService.notifyOther({option: 'call_loader', value: 'hide'});
+          
+          this.toastr.success("The data was uploaded successfully");
+        },
+        error => this.toastr.error("An error has ocurred")
+      );
       
     }
   }

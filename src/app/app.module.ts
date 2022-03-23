@@ -7,8 +7,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { ApiHttpService } from "./services/ApiHttpService";
 import { HttpClientModule } from "@angular/common/http";
+import { LoaderComponent } from './loader/loader.component';
+import { CommonService } from './services/common.service';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,14 +20,17 @@ import { HttpClientModule } from "@angular/common/http";
     DashboardComponent,
     UploadFileComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [ApiHttpService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
